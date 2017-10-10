@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>平滑过渡</title>
+        <!-- 知识点
+        1.css的选择器
+        2css3的动画
+        3基本样式操作
+        4字体图标 -->
+        <style>
+        /*自定义字体*/
+        	@font-face{
+			font-family:"myFont";
+			font-weight:normal;
+			src:url('字体图标文件/fonts/raphaelicons-webfont.eot') format('eot'),
+				url('字体图标文件/fonts/raphaelicons-webfont.svg') format('svg'),
+				url('字体图标文件/fonts/raphaelicons-webfont.ttf') format('truetype'),
+				url('字体图标文件/fonts/raphaelicons-webfont.woff') format('woff');
+		}
+
+        	*{
+        		padding: 0;
+        		margin: 0;
+        	}
+        	ul,li{
+        		list-style: none;
+        	}
+        	html,body{
+        		width: 100%;
+        		height: 100%;
+        	}
+			#main{
+				width: 100%;
+				height: 100%;
+				position: relative;
+				overflow: hidden;/* 隐藏滚动的部分 */
+
+			}
+			#main a,#main input{
+				text-align: center;
+				width: 20%;
+				height: 50px;
+				line-height: 50px;
+				position: absolute;
+				bottom: 0;
+
+			}
+			#main a{
+				font-size: 20px;
+				text-decoration: none;
+				color: white;
+				background-color: #E23A6E;
+				z-index: 99;
+			}
+			#main a.menu1{
+				left: 0%;
+			}
+			#main a.menu2{
+				left: 20%;
+			}
+			#main a.menu3{
+				left: 40%;
+			}
+			#main a.menu4{
+				left: 60%;
+			}
+			#main a.menu5{
+				left: 80%;
+			}
+			#main input{
+				z-index: 100;
+				opacity: 0;
+				cursor: pointer;
+			}
+			#main input.menu1{
+				left: 0%;
+			}
+			#main input.menu2{
+				left: 20%;
+			}
+			#main input.menu3{
+				left: 40%;
+			}
+			#main input.menu4{
+				left: 60%;
+			}
+			#main input.menu5{
+				left: 80%;
+			}
+			#main input:hover+a{/*划过input时，input的紧跟着的后面兄弟a会变色 不是紧跟着的不变*/
+				background-color: #AD244F;
+			}
+			#main input:checked+a{/*选中input紧跟的兄弟元素a就变色*/
+				background-color: #821134; 
+			}
+			#main input:checked+a:before{/*三角形*/
+				content: '';
+				display: block;
+				width: 0;
+				height: 0;
+				line-height: 0;
+				border-style: dotted dashed solid dashed ;
+				border-color: transparent;
+				border-bottom-color: #821134;
+				border-width: 40px;
+				position: absolute;
+				bottom: 90%;
+				left: 50%;
+				transform: translateX(-50%);/*左平移自身宽度的50%*/
+			}
+			#main input.menu1:checked~#scroll{
+				transform: translateY(0%);
+			}
+			#main input.menu2:checked~#scroll{
+				transform: translateY(-20%);
+			}
+			#main input.menu3:checked~#scroll{
+				transform: translateY(-40%);
+			}
+			#main input.menu4:checked~#scroll{
+				transform: translateY(-60%);
+			}
+			#main input.menu5:checked~#scroll{
+				transform: translateY(-80%);
+			}
+			#main #scroll{
+				height: 500%;
+				width: 100%;
+				transition: all 0.6s linear;
+
+			}
+			#main #scroll .part{
+				width: 100%;
+				height: 20%;
+				position: relative;
+			}
+			#main #scroll .part:before{/*三角*/
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 50%;
+				border-style: solid dashed dotted dashed;
+				border-width: 120px;
+				border-color: transparent;
+				width: 0;height: 0;
+				transform: translateX(-50%);
+			}
+			#main #scroll .part:nth-child(odd):before{
+				border-top-color: #E23A6E;
+			}
+			#main #scroll .part:nth-child(even):before{
+				border-top-color: white;
+			}
+			#main #scroll .part:after{
+				content: attr(data-icon);
+				font-family: 'myFont' ;
+				position: absolute;
+				top: 30px;
+				left: 50%;
+				transform: translateX(-50%);
+				font-size: 50px;
+			}
+			#main #scroll .part:nth-child(even){
+				background-color: #E23A6E;
+			}
+        </style>
+        <script></script>
+    </head>
+    <body>
+    	<div id="main">
+    		<!-- 菜单部分 -->
+			<input type="radio" name="menu" class="menu1" checked>
+			<a href="#" class="menu1">Monday</a>
+			<input type="radio" name="menu" class="menu2">
+	 		<a href="#" class="menu2">Tudesday</a>
+			<input type="radio" name="menu" class="menu3">
+	 		<a href="#" class="menu3">Wednesday</a>
+			<input type="radio" name="menu" class="menu4">
+	 		<a href="#" class="menu4">Thurday</a>
+	 		<input type="radio" name="menu" class="menu5">
+	 		<a href="#" class="menu5">Friday</a>
+	 		<!-- 页面上面的轮播部分 -->
+    		<div id="scroll">
+    			<div class="part part1" data-icon='H'></div>
+    			<div class="part part2" data-icon='U'></div>
+    			<div class="part part3" data-icon='S'></div>
+    			<div class="part part4" data-icon='2'></div>
+    			<div class="part part5" data-icon='$'></div>
+    		</div>
+    	</div>
+    </body>
+</html>
